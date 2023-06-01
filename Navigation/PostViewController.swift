@@ -1,10 +1,10 @@
 import UIKit
 
-class ProfileViewController: UIViewController {
+class PostViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemMint
+        view.backgroundColor = .systemYellow
     }
     
 }
