@@ -19,7 +19,10 @@ class InfoViewController: UIViewController {
         
         let okAction = UIAlertAction(title: "Ok", style: .default)
         
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        
         alertController.addAction(okAction)
+        alertController.addAction(cancelAction)
         
         self.present(alertController, animated: true)
         
@@ -42,7 +45,6 @@ class InfoViewController: UIViewController {
         
         alertButton.center = view.center
     }
-    
     
     
 }

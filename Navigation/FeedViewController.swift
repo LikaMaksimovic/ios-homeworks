@@ -25,10 +25,6 @@ class FeedViewController: UIViewController {
     
     func setupViews() {
         
-        let barButtonItem = UIBarButtonItem.init(title: "Info", style: .plain, target: self, action: #selector(showInfoScreen))
-        
-        navigationItem.rightBarButtonItem = barButtonItem
-        
         view.backgroundColor = .orange
         view.addSubview(postButton)
     }
@@ -37,18 +33,10 @@ class FeedViewController: UIViewController {
         postButton.center = view.center
     }
     
-    @objc func showInfoScreen() {
-        
-        let infoVC = InfoViewController.init()
-        
-        self.navigationController?.pushViewController(infoVC, animated: true)
-    }
-    
     @objc func showPostScreen() {
         let postVC = PostViewController.init()
         
         self.navigationController?.pushViewController(postVC, animated: true)
     }
-    
     
 }
