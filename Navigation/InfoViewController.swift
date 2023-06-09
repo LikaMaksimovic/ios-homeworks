@@ -4,10 +4,10 @@ class InfoViewController: UIViewController {
     
     lazy var alertButton: UIButton = {
         
-        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 300, height: 60))
+        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 250, height: 70))
         button.setTitle("Alert", for: .normal)
         button.addTarget(self, action: #selector(showAlert), for: .touchUpInside)
-        button.backgroundColor = .red
+        button.backgroundColor = .systemRed
         return button
         
     }()
@@ -30,7 +30,7 @@ class InfoViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .green
+        view.backgroundColor = .systemGreen
         
         setupViews()
         setupConstraints()

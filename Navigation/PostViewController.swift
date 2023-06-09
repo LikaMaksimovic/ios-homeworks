@@ -14,6 +14,7 @@ class PostViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .systemYellow
         
+        title = "My Post"
         
         setupViews()
         setupConstraints()

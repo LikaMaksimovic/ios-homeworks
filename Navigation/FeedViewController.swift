@@ -9,7 +9,7 @@ class FeedViewController: UIViewController {
     }
     
     lazy var postButton: UIButton = {
-        let button = UIButton(frame: CGRect.init(x: 0, y: 0, width: 300, height: 60))
+        let button = UIButton(frame: CGRect.init(x: 0, y: 0, width: 250, height: 70))
         button.setTitle("Open Post", for: .normal)
         button.addTarget(self, action: #selector(showPostScreen), for: .touchUpInside)
         button.backgroundColor = .systemPink
@@ -25,7 +25,7 @@ class FeedViewController: UIViewController {
     
     func setupViews() {
         
-        view.backgroundColor = .orange
+        view.backgroundColor = .systemOrange
         view.addSubview(postButton)
     }
     
