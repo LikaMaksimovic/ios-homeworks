@@ -11,10 +11,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let feedVC = FeedViewController()
         let profileVC = ProfileViewController()
-        let postVC = PostViewController()
-        
-        postVC.title = "Post"
-        postVC.view.backgroundColor = .systemMint
         
         
         let tabBarController = UITabBarController.init()
