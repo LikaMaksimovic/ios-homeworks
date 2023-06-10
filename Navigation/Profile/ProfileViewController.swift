@@ -8,7 +8,6 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
         
         setupViews()
-        setupConstraints()
 
     }
     
@@ -29,10 +28,4 @@ class ProfileViewController: UIViewController {
         view.addSubview(profileHeaderView)
   
         }
-        
-    
     }
-    
-    func setupConstraints() {
-        
-}
