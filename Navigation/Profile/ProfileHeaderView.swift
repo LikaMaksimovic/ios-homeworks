@@ -34,7 +34,7 @@ class ProfileHeaderView: UIView {
         return image
     }()
     
-    var statusButton: UIButton = {
+    private lazy var statusButton: UIButton = {
         
         let button = UIButton()
         button.setTitle("Show status", for: .normal)
@@ -54,18 +54,23 @@ class ProfileHeaderView: UIView {
         return button
     }()
     
-    var textField: UITextField = {
+    private lazy var textField: UITextField = {
         
-        var textField = UITextField()
+        let textField = UITextField()
         textField.layer.cornerRadius = 10
         textField.font = UIFont.systemFont(ofSize: 15, weight: .regular)
         textField.textColor = .black
         textField.backgroundColor = UIColor.white
         textField.layer.borderWidth = 1
         textField.layer.borderColor = UIColor.black.cgColor
+        //textField.placeholder = "Enter your text" 
+        textField.text = " Enter your text"
+        textField.textColor = .lightGray
+        
         textField.translatesAutoresizingMaskIntoConstraints = false
         
         textField.addTarget(self, action: #selector(statusTextChanged), for: .editingChanged)
+        textField.addTarget(self, action: #selector(clearTextField), for: .editingDidBegin)
         
         return textField
     }()
@@ -98,61 +103,64 @@ class ProfileHeaderView: UIView {
         NSLayoutConstraint.activate([
             
             nameLabel.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor),
-            nameLabel.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 27)
+            nameLabel.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 27),
             
-        ])
-        
-        NSLayoutConstraint.activate([
             
             profileImageView.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 16),
             profileImageView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 16),
             profileImageView.heightAnchor.constraint(equalToConstant: 100),
             profileImageView.widthAnchor.constraint(equalToConstant: 100),
             
-        ])
-        
-        NSLayoutConstraint.activate([
             
             statusLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 16),
-            statusLabel.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: 30)
+            statusLabel.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: 30),
             
-        ])
-        
-        NSLayoutConstraint.activate([
+            
             
             statusButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -16),
             statusButton.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 16),
             statusButton.topAnchor.constraint(equalTo: profileImageView.bottomAnchor, constant: 34),
+            statusButton.heightAnchor.constraint(equalToConstant: 50),
             
-            statusButton.heightAnchor.constraint(equalToConstant: 50)
-            
-        ])
-        
-        NSLayoutConstraint.activate([
             
             textField.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -16),
             textField.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: 30),
             textField.topAnchor.constraint(equalTo: statusLabel.bottomAnchor, constant: 16),
-            
             textField.heightAnchor.constraint(equalToConstant: 40)
             
         ])
     }
     
 
-
+    
     @objc func buttonPressed() {
         
-        print(statusLabel.text)
-        statusLabel.text = statustext
+        if let text = textField.text, !text.isEmpty {
+            
+            print(statusLabel.text ?? "")
+            statusLabel.text = statustext
+            
+        } else {
+            
+            textField.layer.borderColor = UIColor.red.cgColor
+            print("Enter your text")
+        }
         
     }
+    
+    
+    @objc func clearTextField() {
+        
+        textField.text = nil
+    }
+    
     
     private var statustext: String = ""
     
     @objc func statusTextChanged(_ textField: UITextField) {
         
         statustext = textField.text ?? ""
+        
     }
     
 }
