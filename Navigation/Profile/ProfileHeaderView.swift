@@ -25,7 +25,7 @@ class ProfileHeaderView: UIView {
     var profileImageView: UIImageView = {
         
         let image = UIImageView()
-        image.image = UIImage(named: "ava")
+        image.image = UIImage(named: "ava2")
         image.translatesAutoresizingMaskIntoConstraints = false
         image.layer.cornerRadius = 50
         image.clipsToBounds = true
@@ -63,14 +63,15 @@ class ProfileHeaderView: UIView {
         textField.backgroundColor = UIColor.white
         textField.layer.borderWidth = 1
         textField.layer.borderColor = UIColor.black.cgColor
-        //textField.placeholder = "Enter your text" 
+        //textField.placeholder = " Enter your text"
         textField.text = " Enter your text"
-        textField.textColor = .lightGray
+        textField.textColor = .darkGray
         
         textField.translatesAutoresizingMaskIntoConstraints = false
         
         textField.addTarget(self, action: #selector(statusTextChanged), for: .editingChanged)
         textField.addTarget(self, action: #selector(clearTextField), for: .editingDidBegin)
+        textField.addTarget(self, action: #selector(spaceBeforeTyping), for: .editingDidBegin)
         
         return textField
     }()
@@ -135,10 +136,11 @@ class ProfileHeaderView: UIView {
     
     @objc func buttonPressed() {
         
-        if let text = textField.text, !text.isEmpty {
+        if let text = textField.text, text != " " {
             
             print(statusLabel.text ?? "")
             statusLabel.text = statustext
+            textField.layer.borderColor = UIColor.black.cgColor
             
         } else {
             
@@ -150,8 +152,13 @@ class ProfileHeaderView: UIView {
     
     
     @objc func clearTextField() {
-        
+
         textField.text = nil
+    }
+    
+    @objc func spaceBeforeTyping() {
+        
+        textField.text = " " + (textField.text ?? "")
     }
     
     
