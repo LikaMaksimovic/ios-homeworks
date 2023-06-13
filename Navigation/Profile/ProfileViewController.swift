@@ -3,7 +3,17 @@ import UIKit
 class ProfileViewController: UIViewController {
     
     var profileHeaderView = ProfileHeaderView()
-    var actionButton: UIButton!
+    
+    private lazy var actionButton: UIButton = {
+        
+        let button = UIButton()
+        button.setTitle("Action", for: .normal)
+        button.backgroundColor = .systemBlue
+        button.setTitleColor(.white, for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        return button
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,13 +31,6 @@ class ProfileViewController: UIViewController {
         profileHeaderView.backgroundColor = .systemGray3
         
         view.addSubview(profileHeaderView)
-        
-        actionButton = UIButton()
-        actionButton.setTitle("Action", for: .normal)
-        actionButton.backgroundColor = .systemBlue
-        actionButton.setTitleColor(.white, for: .normal)
-        actionButton.translatesAutoresizingMaskIntoConstraints = false
-        
         view.addSubview(actionButton)
         
     }

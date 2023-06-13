@@ -9,6 +9,7 @@ class ProfileHeaderView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         label.textColor = .black
+        
         return label
     }()
     
@@ -19,6 +20,7 @@ class ProfileHeaderView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 14, weight: .regular)
         label.textColor = .gray
+        
         return label
     }()
     
@@ -31,6 +33,7 @@ class ProfileHeaderView: UIView {
         image.clipsToBounds = true
         image.layer.borderWidth = 3
         image.layer.borderColor = UIColor.white.cgColor
+        
         return image
     }()
     
@@ -41,9 +44,7 @@ class ProfileHeaderView: UIView {
         button.backgroundColor = .systemBlue
         button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 10
-       
         button.translatesAutoresizingMaskIntoConstraints = false
-        
         button.layer.shadowOffset = CGSize(width: 10, height: 10)
         button.layer.shadowRadius = 4
         button.layer.shadowColor = UIColor.black.cgColor
@@ -57,21 +58,21 @@ class ProfileHeaderView: UIView {
     private lazy var textField: UITextField = {
         
         let textField = UITextField()
+        
+        textField.delegate = self
+        
         textField.layer.cornerRadius = 10
         textField.font = UIFont.systemFont(ofSize: 15, weight: .regular)
         textField.textColor = .black
         textField.backgroundColor = UIColor.white
         textField.layer.borderWidth = 1
         textField.layer.borderColor = UIColor.black.cgColor
-        //textField.placeholder = " Enter your text"
         textField.text = " Enter your text"
         textField.textColor = .darkGray
-        
         textField.translatesAutoresizingMaskIntoConstraints = false
         
         textField.addTarget(self, action: #selector(statusTextChanged), for: .editingChanged)
         textField.addTarget(self, action: #selector(clearTextField), for: .editingDidBegin)
-        textField.addTarget(self, action: #selector(spaceBeforeTyping), for: .editingDidBegin)
         
         return textField
     }()
@@ -89,11 +90,14 @@ class ProfileHeaderView: UIView {
     }
     
     func setupViews() {
+        
         self.addSubview(nameLabel)
         self.addSubview(profileImageView)
         self.addSubview(statusLabel)
         self.addSubview(statusButton)
         self.addSubview(textField)
+        
+        textField.addPaddingAndIcon(UIImage(), padding: 5, isLeftView: true)
     }
     
     
@@ -103,8 +107,8 @@ class ProfileHeaderView: UIView {
         
         NSLayoutConstraint.activate([
             
-            nameLabel.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor),
             nameLabel.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 27),
+            nameLabel.leadingAnchor.constraint(equalTo: statusLabel.leadingAnchor),
             
             
             profileImageView.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 16),
@@ -127,7 +131,7 @@ class ProfileHeaderView: UIView {
             textField.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -16),
             textField.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: 30),
             textField.topAnchor.constraint(equalTo: statusLabel.bottomAnchor, constant: 16),
-            textField.heightAnchor.constraint(equalToConstant: 40)
+            textField.heightAnchor.constraint(equalToConstant: 40),
             
         ])
     }
@@ -136,29 +140,21 @@ class ProfileHeaderView: UIView {
     
     @objc func buttonPressed() {
         
-        if let text = textField.text, text != " " {
-            
+        if let text = textField.text, text.isEmpty {
+            textField.layer.borderColor = UIColor.red.cgColor
+            print("Enter your text")
+        } else {
             print(statusLabel.text ?? "")
             statusLabel.text = statustext
             textField.layer.borderColor = UIColor.black.cgColor
-            
-        } else {
-            
-            textField.layer.borderColor = UIColor.red.cgColor
-            print("Enter your text")
         }
-        
+
     }
     
     
     @objc func clearTextField() {
 
         textField.text = nil
-    }
-    
-    @objc func spaceBeforeTyping() {
-        
-        textField.text = " " + (textField.text ?? "")
     }
     
     
@@ -170,4 +166,31 @@ class ProfileHeaderView: UIView {
         
     }
     
+}
+
+extension ProfileHeaderView: UITextFieldDelegate {
+
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+
+        if let text = textField.text, let textRange = Range(range, in: text) {
+            let updatedText = text.replacingCharacters(in: textRange, with: string)
+
+            print("updated ->", updatedText)
+
+            if updatedText.isNonEmpty {
+                textField.layer.borderColor = UIColor.black.cgColor
+            } else {
+                textField.layer.borderColor = UIColor.red.cgColor
+            }
+        }
+
+        return true
+
+    }
+}
+
+extension String {
+    var isNonEmpty: Bool {
+        return !self.isEmpty
+    }
 }
