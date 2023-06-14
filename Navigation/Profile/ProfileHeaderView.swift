@@ -61,18 +61,27 @@ class ProfileHeaderView: UIView {
         
         textField.delegate = self
         
-        textField.layer.cornerRadius = 10
-        textField.font = UIFont.systemFont(ofSize: 15, weight: .regular)
+        textField.placeholder = "Enter your text"
         textField.textColor = .black
+        textField.font = UIFont.systemFont(ofSize: 15, weight: .regular)
         textField.backgroundColor = UIColor.white
+        
         textField.layer.borderWidth = 1
         textField.layer.borderColor = UIColor.black.cgColor
-        textField.text = " Enter your text"
-        textField.textColor = .darkGray
+        textField.layer.cornerRadius = 10
+        
+        textField.autocorrectionType = UITextAutocorrectionType.no
+        textField.keyboardType = UIKeyboardType.default
+        textField.returnKeyType = UIReturnKeyType.done
+        textField.clearButtonMode = UITextField.ViewMode.whileEditing
+        textField.contentVerticalAlignment = UIControl.ContentVerticalAlignment.center
+        
+        let leftView = UIView(frame: CGRect(x: 0, y: 0, width: 5, height: textField.frame.height))
+        textField.leftView = leftView
+        textField.leftViewMode = .always
         textField.translatesAutoresizingMaskIntoConstraints = false
         
         textField.addTarget(self, action: #selector(statusTextChanged), for: .editingChanged)
-        textField.addTarget(self, action: #selector(clearTextField), for: .editingDidBegin)
         
         return textField
     }()
@@ -97,7 +106,6 @@ class ProfileHeaderView: UIView {
         self.addSubview(statusButton)
         self.addSubview(textField)
         
-        textField.addPaddingAndIcon(UIImage(), padding: 5, isLeftView: true)
     }
     
     
@@ -152,12 +160,6 @@ class ProfileHeaderView: UIView {
     }
     
     
-    @objc func clearTextField() {
-
-        textField.text = nil
-    }
-    
-    
     private var statustext: String = ""
     
     @objc func statusTextChanged(_ textField: UITextField) {
@@ -167,6 +169,7 @@ class ProfileHeaderView: UIView {
     }
     
 }
+
 
 extension ProfileHeaderView: UITextFieldDelegate {
 
