@@ -1,6 +1,8 @@
 import UIKit
 
-class ProfileHeaderView: UIView {
+class ProfileHeaderView: UITableViewHeaderFooterView {
+    
+    static let id = "ProfileHeaderView"
     
     var nameLabel: UILabel = {
         
@@ -87,12 +89,13 @@ class ProfileHeaderView: UIView {
     }()
     
     
-    init() {
-        super.init(frame: .zero)
+    override init(reuseIdentifier: String?) {
+        super.init(reuseIdentifier: reuseIdentifier)
         
         setupViews()
         setupConstraints()
     }
+
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
