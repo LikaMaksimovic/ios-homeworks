@@ -4,6 +4,7 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
     
     static let id = "ProfileHeaderView"
     
+    
     var nameLabel: UILabel = {
         
         let label = UILabel()
