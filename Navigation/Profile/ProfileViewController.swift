@@ -2,56 +2,96 @@ import UIKit
 
 class ProfileViewController: UIViewController {
     
-    var profileHeaderView = ProfileHeaderView()
-    var actionButton: UIButton!
     
+    private var tableView: UITableView = {
+        
+        let tableView = UITableView()
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        
+        return tableView
+    }()
+    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupViews()
+        view.backgroundColor = .white
+        
+        setupView()
+        setupTableView()
         setupConstraints()
-
-    }
-
-    
-    func setupViews() {
-        
-        title = "Profile"
-        view.backgroundColor = .systemGray6
-        profileHeaderView.backgroundColor = .systemGray3
-        
-        view.addSubview(profileHeaderView)
-        
-        actionButton = UIButton()
-        actionButton.setTitle("Action", for: .normal)
-        actionButton.backgroundColor = .systemBlue
-        actionButton.setTitleColor(.white, for: .normal)
-        actionButton.translatesAutoresizingMaskIntoConstraints = false
-        
-        view.addSubview(actionButton)
-        
     }
     
     
-    func setupConstraints() {
+    private func setupView() {
         
-        profileHeaderView.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(tableView)
+    }
+    
+    
+    private func setupTableView() {
+        
+        tableView.delegate = self
+        tableView.dataSource = self
+        
+        tableView.register(PostTableViewCell.self, forCellReuseIdentifier: PostTableViewCell.id)
+        tableView.register(ProfileHeaderView.self, forHeaderFooterViewReuseIdentifier: ProfileHeaderView.id)
+        
+        tableView.estimatedRowHeight = 40
+    }
+    
+    
+    private func setupConstraints() {
         
         let safeArea = view.safeAreaLayoutGuide
         
         NSLayoutConstraint.activate([
             
-            profileHeaderView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
-            profileHeaderView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
-            profileHeaderView.topAnchor.constraint(equalTo: safeArea.topAnchor),
-            profileHeaderView.heightAnchor.constraint(equalToConstant: 220),
-            
-            
-            actionButton.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
-            actionButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
-            actionButton.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor)
-            
+            tableView.topAnchor.constraint(equalTo: safeArea.topAnchor),
+            tableView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
+            tableView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor)
         ])
+        
+    }
+}
+
+extension ProfileViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
+        return posts.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: PostTableViewCell.id, for: indexPath) as? PostTableViewCell else { return UITableViewCell() }
+        
+        let post = posts[indexPath.row]
+        cell.configure(with: post)
+        
+        return cell
+    }
+    
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        if section == 0 {
+            guard let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: ProfileHeaderView.id) as? ProfileHeaderView else { return nil }
+            
+            return headerView
+        }
+        return nil
+    }
+    
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        
+        if section == 0 {
+            return 230
+        }
+        
+        return 0
     }
     
 }

@@ -4,7 +4,7 @@ class FeedViewController: UIViewController {
     
     var post: Post? {
         didSet {
-            self.title = post?.title
+            self.title = post?.author
         }
     }
     
