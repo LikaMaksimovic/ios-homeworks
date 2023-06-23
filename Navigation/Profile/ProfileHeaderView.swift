@@ -122,29 +122,23 @@ class ProfileHeaderView: UITableViewHeaderFooterView {
             nameLabel.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 27),
             nameLabel.leadingAnchor.constraint(equalTo: statusLabel.leadingAnchor),
             
-            
             profileImageView.topAnchor.constraint(equalTo: safeArea.topAnchor, constant: 16),
             profileImageView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 16),
             profileImageView.heightAnchor.constraint(equalToConstant: 100),
             profileImageView.widthAnchor.constraint(equalToConstant: 100),
             
-            
             statusLabel.topAnchor.constraint(equalTo: nameLabel.bottomAnchor, constant: 16),
             statusLabel.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: 30),
-            
-            
             
             statusButton.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -16),
             statusButton.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 16),
             statusButton.topAnchor.constraint(equalTo: profileImageView.bottomAnchor, constant: 34),
             statusButton.heightAnchor.constraint(equalToConstant: 50),
             
-            
             textField.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -16),
             textField.leadingAnchor.constraint(equalTo: profileImageView.trailingAnchor, constant: 30),
             textField.topAnchor.constraint(equalTo: statusLabel.bottomAnchor, constant: 16),
             textField.heightAnchor.constraint(equalToConstant: 40),
-            
         ])
     }
     

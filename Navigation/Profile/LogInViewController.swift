@@ -215,7 +215,6 @@ class LogInViewController: UIViewController {
             contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
             contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
             contentView.heightAnchor.constraint(equalTo: scrollView.heightAnchor)
-        
         ])
         
     }
