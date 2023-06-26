@@ -65,7 +65,6 @@ class FeedViewController: UIViewController {
             verticalStackView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 20),
             verticalStackView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -20),
             verticalStackView.centerYAnchor.constraint(equalTo: safeArea.centerYAnchor)
-            
         ])
         
     }

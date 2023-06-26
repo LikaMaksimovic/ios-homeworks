@@ -10,24 +10,22 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         
         let feedVC = FeedViewController()
-        //let profileVC = ProfileViewController()
         let logInVC = LogInViewController()
-        
-        
+                
         let tabBarController = UITabBarController.init()
         
         let feedNav = UINavigationController(rootViewController: feedVC)
         
         
-        let image = UIImage.init(systemName: "chart.bar.doc.horizontal.fill")
-        let selectedImage = UIImage.init(systemName: "chart.bar.doc.horizontal")
+        let image = UIImage.init(systemName: "house")
+        let selectedImage = UIImage.init(systemName: "house.fill")
         
         feedNav.tabBarItem = UITabBarItem.init(title: "Feed", image: image, selectedImage: selectedImage)
         
         let profileNav = UINavigationController(rootViewController: logInVC)
         
-        let image2 = UIImage.init(systemName: "person.fill")
-        let selectedImage2 = UIImage(systemName: "person.crop.circle.fill")
+        let image2 = UIImage.init(systemName: "person")
+        let selectedImage2 = UIImage(systemName: "person.fill")
         profileNav.tabBarItem = UITabBarItem.init(title: "Profile", image: image2, selectedImage: selectedImage2)
         
         
